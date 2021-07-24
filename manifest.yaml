@@ -1,1 +1,37 @@
-to be updated
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-hellokube-svc
+  namespace: sample
+spec:
+  type: LoadBalancer 
+  ports:
+  - port: 8080
+  selector:
+    app: hellokube
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-hellokube
+  namespace: sample
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: hellokube
+  template:
+    metadata:
+      labels:
+        app: hellokube
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: paulbouwer/hello-kubernetes:1.10
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample
