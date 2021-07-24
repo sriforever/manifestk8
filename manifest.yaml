@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample
+---  
+apiVersion: v1
 kind: Service
 metadata:
   name: my-hellokube-svc
@@ -16,7 +21,7 @@ metadata:
   name: my-hellokube
   namespace: sample
 spec:
-  replicas: 5
+  replicas: 5 
   selector:
     matchLabels:
       app: hellokube
@@ -30,8 +35,3 @@ spec:
         image: paulbouwer/hello-kubernetes:1.10
         ports:
         - containerPort: 8080
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: sample
